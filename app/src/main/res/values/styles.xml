@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TextInputLayout style -->
+    <style name="Widget.TheWitness.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">?colorSecondary</item>
+        <item name="hintTextColor">?colorSecondary</item>
+    </style>
+</resources>

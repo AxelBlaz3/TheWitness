@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="reply"
+            type="com.wielabs.thewitness.model.Reply" />
+
+        <variable
+            name="listener"
+            type="com.wielabs.thewitness.ui.comment.ReplyAdapter.ReplyAdapterListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false">
+
+        <ImageView
+            android:id="@+id/reply_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="@dimen/grid_2"
+            android:src="@drawable/ic_outline_account_circle_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/replier_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/grid_2"
+            android:text="@{reply.author}"
+            android:textAppearance="?textAppearanceSubtitle2"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/reply_image"
+            app:layout_constraintTop_toTopOf="@+id/reply_image"
+            tools:text="Anonymous" />
+
+        <TextView
+            android:id="@+id/reply_timestamp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:text="@{reply.timestamp}"
+            android:textAppearance="?textAppearanceCaption"
+            app:layout_constraintBottom_toBottomOf="@+id/comment_likes_image"
+            app:layout_constraintEnd_toStartOf="@+id/comment_likes_image"
+            app:layout_constraintStart_toEndOf="@+id/reply_image"
+            app:layout_constraintTop_toTopOf="@+id/comment_likes_image"
+            tools:text="12 Nov, 2020 • 2:44 PM" />
+
+        <TextView
+            android:id="@+id/reply_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_0_5"
+            android:text="@{reply.message}"
+            android:textAppearance="?textAppearanceBody2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/reply_image"
+            app:layout_constraintTop_toBottomOf="@+id/replier_name"
+            tools:text="Some weird reply for testing the preview. Some weird reply for testing the preview." />
+
+        <ImageView
+            android:id="@+id/comment_likes_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:onClick="@{(view) -> listener.onReplyLikeClicked(reply)}"
+            android:background="?actionBarItemBackground"
+            android:padding="@dimen/grid_2"
+            android:src="@{reply.liked ? @drawable/ic_baseline_thumb_up_24: @drawable/ic_outline_thumb_up_24}"
+            app:layout_constraintEnd_toStartOf="@+id/reply_likes"
+            app:layout_constraintTop_toBottomOf="@+id/reply_message"
+            tools:src="@drawable/ic_outline_thumb_up_24" />
+
+        <TextView
+            android:id="@+id/reply_likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:drawablePadding="@dimen/grid_1"
+            android:gravity="center"
+            android:text="@{String.valueOf(reply.likes)}"
+            android:textAppearance="?textAppearanceButton"
+            android:textColor="?colorControlNormal"
+            app:layout_constraintBottom_toBottomOf="@+id/comment_likes_image"
+            app:layout_constraintEnd_toStartOf="@+id/replyButton"
+            app:layout_constraintTop_toBottomOf="@+id/reply_message"
+            tools:text="1" />
+
+        <TextView
+            android:id="@+id/replyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:onClick="@{() -> listener.onReplyClicked(reply)}"
+            android:paddingHorizontal="@dimen/grid_1"
+            android:paddingVertical="@dimen/grid_1"
+            android:text="@string/reply"
+            android:textAppearance="?textAppearanceCaption"
+            android:textColor="?colorSecondary"
+            app:layout_constraintBottom_toBottomOf="@+id/comment_likes_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reply_message" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

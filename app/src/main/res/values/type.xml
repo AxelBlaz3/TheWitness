@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Typography -->
+    <style name="TextAppearance.TheWitness.HeadLine3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="fontFamily">@font/source_sans_pro_light</item>
+    </style>
+
+    <style name="TextAppearance.TheWitness.HeadLine4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">@font/source_sans_pro</item>
+    </style>
+
+    <style name="TextAppearance.TheWitness.HeadLine5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">@font/source_sans_pro</item>
+    </style>
+
+    <style name="TextAppearance.TheWitness.HeadLine6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/source_sans_pro_semibold</item>
+    </style>
+
+    <style name="TextAppearance.TheWitness.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/source_sans_pro</item>
+    </style>
+
+    <style name="TextAppearance.TheWitness.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.TheWitness.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/source_sans_pro</item>
+    </style>
+
+    <style name="TextAppearance.TheWitness.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/source_sans_pro</item>
+    </style>
+
+    <style name="TextAppearance.TheWitness.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/source_sans_pro_semibold</item>
+    </style>
+
+    <style name="TextAppearance.TheWitness.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/source_sans_pro</item>
+    </style>
+
+    <style name="TextAppearance.TheWitness.Overline" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="fontFamily">@font/source_sans_pro</item>
+    </style>
+
+    <style name="TextAppearance.TheWitness.Tab" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="fontFamily">@font/source_sans_pro_semibold</item>
+    </style>
+</resources>

@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">The Witness</string>
+    <string name="for_you">For you</string>
+    <string name="asia">Asia</string>
+    <string name="africa">Africa</string>
+    <string name="north_america">North America</string>
+    <string name="south_america">South America</string>
+    <string name="antarctica">Antarctica</string>
+    <string name="europe">Europe</string>
+    <string name="australia">Australia</string>
+    <string name="reply">Reply</string>
+    <string name="tap_to_update">Tap to refresh</string>
+
+    <!-- Transition names. -->
+    <string name="transition_container">shared_element_container_transition_%1$d</string>
+
+
+    <string name="welcome_to_the_witness">Welcome to The Witness</string>
+    <string name="sign_in_with_google_to_get_started">Sign in with Google to get started.</string>
+    <string name="sign_in">Sign in</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="you_might_like">You Might Like</string>
+    <string name="comments">Comments</string>
+    <string name="view_x_replies">View %1$d replies</string>
+    <string name="view_reply">View reply</string>
+    <string name="hide_replies">Hide replies</string>
+    <string name="view_replies">View replies</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="new_comment">New Comment</string>
+    <string name="new_reply">New Reply</string>
+    <string name="post">Post</string>
+    <string name="opinion">Opinion</string>
+    <string name="comment">Comment</string>
+    <string name="no_comments_yet">No comments yet. Be the first to comment!</string>
+    <string name="opinion_empty">Opinion cannot be empty</string>
+    <string name="search_for_news">Search for news</string>
+    <string name="search_summary">Search for news you\'d like to check.</string>
+    <string name="logout_error">Couldn\'t logout. Try again</string>
+    <string name="retry">Retry</string>
+    <string name="sign_in_failed">Sign in failed</string>
+    <string name="some_error_occurred">Some error occurred</string>
+</resources>

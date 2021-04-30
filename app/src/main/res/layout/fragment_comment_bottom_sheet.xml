@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isComment"
+            type="Boolean" />
+
+        <variable
+            name="isPosting"
+            type="Boolean" />
+
+        <variable
+            name="authorName"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/dialog_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_3"
+            android:text="@{isComment ? @string/new_comment : @string/new_reply}"
+            android:textAppearance="?textAppearanceHeadline6"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="New Comment" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/opinion_text_input_layout"
+            style="@style/Widget.TheWitness.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_2"
+            android:enabled="@{isPosting ? false : true}"
+            app:layout_constraintTop_toBottomOf="@id/dialog_heading">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/opinion_edit_text"
+                android:layout_width="match_parent"
+                android:text="@{isComment ? `` : `@` + authorName + ` `}"
+                android:layout_height="wrap_content"
+                android:hint="@string/opinion" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/post_comment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:enabled="@{isPosting ? false : true}"
+            android:gravity="center"
+            android:text="@string/post"
+            android:textAppearance="?textAppearanceButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/cancel_comment"
+            app:layout_constraintTop_toBottomOf="@id/opinion_text_input_layout" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancel_comment"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:enabled="@{isPosting ? false : true}"
+            android:text="@string/cancel"
+            android:textColor="?colorSecondary"
+            app:layout_constraintEnd_toStartOf="@+id/post_comment"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/opinion_text_input_layout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

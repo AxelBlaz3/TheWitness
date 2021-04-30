@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="news"
+            type="com.wielabs.thewitness.model.News" />
+
+        <variable
+            name="newsAdapterListener"
+            type="com.wielabs.thewitness.ui.news.NewsAdapter.NewsAdapterListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_0_5"
+        android:layout_marginVertical="@dimen/grid_0_5"
+        android:onClick="@{(view) -> newsAdapterListener.onNewsClicked(view, news)}"
+        app:cardElevation="@dimen/card_elevation"
+        app:shapeAppearance="?shapeAppearanceMediumComponent"
+        app:strokeColor="?colorControlHighlight"
+        app:strokeWidth="@dimen/card_stroke_width">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/shapeableImageView"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginBottom="16dp"
+                android:scaleType="centerCrop"
+                app:glideSrc="@{news.imageUrl}"
+                app:layout_constraintBottom_toTopOf="@+id/news_title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="?shapeAppearanceMediumComponent"
+                tools:src="@mipmap/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/play_button_image"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_outline_play_circle_filled_24"
+                android:visibility="@{news.imageUrl == null ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/shapeableImageView"
+                app:layout_constraintTop_toTopOf="@+id/shapeableImageView"
+                app:tint="#E0E0E0" />
+
+            <TextView
+                android:id="@+id/news_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/grid_2"
+                android:layout_marginBottom="@dimen/grid_1"
+                android:maxLines="2"
+                android:text="@{news.title}"
+                android:textAppearance="?textAppearanceSubtitle1"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/news_summary"
+                app:layout_goneMarginTop="250dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:text="Google Pixel 5 Automcatically Turns on Reverse Wireless Charging When Connected to USB Adapter" />
+
+            <TextView
+                android:id="@+id/news_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/grid_2"
+                android:layout_marginTop="@dimen/grid_0_5"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{news.description}"
+                android:textAppearance="?textAppearanceBody2"
+                app:layout_constraintBottom_toTopOf="@+id/news_likes"
+                tools:layout_editor_absoluteX="16dp"
+                tools:text="Google Pixel 5 can turn into a wireless charging pad when it's connected to a USB Type-C power adapter. Google Pixel 5 can turn into a wireless charging pad when it's connected to a USB Type-C power adapter." />
+
+            <ImageView
+                android:id="@+id/news_likes"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{() -> newsAdapterListener.onLikeClicked(news)}"
+                android:padding="@dimen/grid_2"
+                android:src="@{news.liked ? @drawable/ic_baseline_thumb_up_24 : @drawable/ic_outline_thumb_up_24}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/share_news"
+                tools:src="@drawable/ic_outline_thumb_up_24" />
+
+            <ImageView
+                android:id="@+id/share_news"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{() -> newsAdapterListener.onShareClicked(news)}"
+                android:padding="@dimen/grid_2"
+                android:src="@drawable/ic_outline_share_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/news_summary" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="@dimen/grid_2"
+                app:glideSrc="@{news.flagUrl}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

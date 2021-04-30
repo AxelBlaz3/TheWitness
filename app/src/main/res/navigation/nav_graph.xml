@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.wielabs.thewitness.ui.home.HomeFragment"
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+        <action
+            android:id="@+id/action_homeFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsDetailFragment"
+        android:name="com.wielabs.thewitness.ui.news.NewsDetailFragment"
+        android:label="NewsDetailFragment">
+        <argument
+            android:name="news"
+            app:argType="com.wielabs.thewitness.model.News" />
+        <action
+            android:id="@+id/action_newsDetailFragment_to_commentBottomSheetDialog"
+            app:destination="@id/commentBottomSheetDialog" />
+        <action
+            android:id="@+id/action_newsDetailFragment_self"
+            app:destination="@id/newsDetailFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.wielabs.thewitness.ui.news.NewsFragment"
+        android:label="NewsFragment" />
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.wielabs.thewitness.ui.signin.SignInFragment"
+        android:label="SignInFragment">
+        <action
+            android:id="@+id/action_signInFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/nav_graph.xml"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <dialog
+        android:id="@+id/commentBottomSheetDialog"
+        android:name="com.wielabs.thewitness.ui.comment.CommentBottomSheetDialog"
+        android:label="CommentBottomSheetDialog">
+        <argument
+            android:name="isComment"
+            app:argType="boolean" />
+        <argument
+            android:name="reply"
+            android:defaultValue="@null"
+            app:argType="com.wielabs.thewitness.model.Reply"
+            app:nullable="true" />
+        <argument
+            android:name="comment"
+            android:defaultValue="@null"
+            app:argType="com.wielabs.thewitness.model.Comment"
+            app:nullable="true" />
+        <argument
+            android:name="newsId"
+            app:argType="integer" />
+    </dialog>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.wielabs.thewitness.ui.search.SearchFragment"
+        android:label="SearchFragment">
+        <action
+            android:id="@+id/action_searchFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_searchFragment"
+        app:destination="@id/searchFragment" />
+</navigation>

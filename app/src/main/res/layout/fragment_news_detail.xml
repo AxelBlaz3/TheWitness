@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="newsViewModel"
+            type="com.wielabs.thewitness.ui.news.NewsViewModel" />
+
+        <variable
+            name="isVideoPausedOrStopped"
+            type="Boolean" />
+
+        <variable
+            name="isPosting"
+            type="Boolean" />
+
+        <variable
+            name="news"
+            type="com.wielabs.thewitness.model.News" />
+
+        <variable
+            name="comments"
+            type="java.util.List&lt;com.wielabs.thewitness.model.Comment>" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorSurface"
+        android:transitionName="@{@string/transition_container(news.id)}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@{comments.size() == 0 ? @dimen/actionBarSize : @dimen/zero}">
+
+            <ImageView
+                android:id="@+id/news_detail_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/grid_2"
+                app:glideSrc="@{news.imageUrl}"
+                app:layout_constraintBottom_toTopOf="@id/news_detail_title"
+                tools:layout_height="250dp"
+                tools:src="@drawable/ic_logo" />
+
+            <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/exo_player_view"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginBottom="@dimen/grid_2"
+                android:visibility="@{news.imageUrl == null ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toTopOf="@id/news_detail_title"
+                app:layout_constraintDimensionRatio="4:3"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_height="300dp"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/play_button_image"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_outline_play_circle_filled_24"
+                android:visibility="@{isVideoPausedOrStopped ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/exo_player_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/news_detail_image"
+                app:layout_constraintTop_toTopOf="@id/exo_player_view"
+                app:tint="#E0E0E0" />
+
+            <TextView
+                android:id="@+id/news_detail_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/grid_3"
+                android:layout_marginTop="@dimen/grid_2"
+                android:layout_marginBottom="@dimen/grid_1"
+                android:text="@{news.title}"
+                android:textStyle="bold"
+                android:textAppearance="?textAppearanceHeadline5"
+                app:layout_constraintBottom_toTopOf="@id/news_detail_timestamp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:text="Google Pixel 5 Automatically Turns on Reverse Wireless Charging When Connected to USB Adapter" />
+
+            <TextView
+                android:id="@+id/news_detail_timestamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/grid_3"
+                android:layout_marginTop="@dimen/grid_0_5"
+                android:layout_marginBottom="@dimen/grid_1"
+                android:text="@{news.timestamp}"
+                android:textAppearance="?textAppearanceCaption"
+                app:layout_constraintBottom_toTopOf="@+id/news_detail_description"
+                tools:text="25 Dec, 2020 • 9:00 AM" />
+
+            <TextView
+                android:id="@+id/news_detail_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/grid_3"
+                android:layout_marginTop="@dimen/grid_1"
+                android:layout_marginBottom="@dimen/grid_2"
+                android:text="@{news.description}"
+                android:textAppearance="?textAppearanceBody2"
+                app:layout_constraintBottom_toTopOf="@+id/you_might_like_text"
+                tools:text="Google Pixel 5 Automatically Turns on Reverse Wireless Charging When Connected to USB Adapter. Google Pixel 5 Automatically \n\nTurns on Reverse Wireless Charging When Connected to USB Adapter. Google Pixel 5 Automatically Turns on Reverse Wireless Charging When Connected to USB Adapter. \n\nGoogle Pixel 5 Automatically Turns on Reverse Wireless Charging When Connected to USB Adapter" />
+
+            <TextView
+                android:id="@+id/you_might_like_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/grid_3"
+                android:layout_marginTop="@dimen/grid_2"
+                android:text="@string/you_might_like"
+                android:textAppearance="?textAppearanceHeadline6"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/suggestions_recycler_view"
+                tools:layout_editor_absoluteX="16dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/suggestions_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/grid_3"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@+id/comments_text"
+                tools:listitem="@layout/news_item_suggestion" />
+
+            <TextView
+                android:id="@+id/comments_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/grid_3"
+                android:text="@string/comments"
+                android:textAppearance="?textAppearanceHeadline6"
+                app:layout_constraintBottom_toTopOf="@+id/comments_recycler_view"
+                app:layout_goneMarginBottom="96dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/no_comments_yet_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_2"
+                android:gravity="center"
+                android:text="@string/no_comments_yet"
+                android:textAppearance="?textAppearanceSubtitle1"
+                android:visibility="@{comments.size() == 0 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toTopOf="@id/new_comment"
+                tools:visibility="visible" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/new_comment"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/grid_2"
+                android:text="@string/comment"
+                android:textAllCaps="false"
+                android:textAppearance="?textAppearanceButton"
+                android:textColor="?colorSecondary"
+                android:visibility="@{comments.size() == 0 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/comments_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/grid_2"
+                android:orientation="vertical"
+                android:visibility="@{comments.empty ? View.GONE : View.VISIBLE}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/post_comment_button"
+                tools:itemCount="1"
+                tools:listitem="@layout/comment_item"
+                tools:visibility="gone" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/comment_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_3"
+                android:layout_marginBottom="@dimen/grid_2"
+                android:background="@drawable/edit_text_bg"
+                android:enabled="@{isPosting ? false : true}"
+                android:hint="@string/comment"
+                android:padding="@dimen/grid_2"
+                android:textAppearance="?textAppearanceSubtitle1"
+                android:visibility="@{comments.size() == 0 ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/post_comment_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/post_comment_button"
+                app:layout_goneMarginTop="@dimen/grid_2"
+                tools:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/post_comment_button"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_2"
+                android:layout_marginBottom="@dimen/grid_2"
+                android:enabled="@{isPosting ? false : true}"
+                android:text="@string/post"
+                android:textColor="?colorSecondary"
+                android:visibility="@{comments.size() == 0 ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_goneMarginTop="@dimen/grid_2"
+                tools:visibility="gone" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
